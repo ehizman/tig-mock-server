@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,16 +20,18 @@ public class TigController {
         gson = new Gson();
     }
 
-    @GetMapping(value = "/{transactionID}/{type}",produces = "application/json")
-    public ResponseEntity<?> fetchStatus(@PathVariable("transactionID") String transactionId, @PathVariable("type") String type){
+    @GetMapping(value = "/", produces = "application/json")
+    public ResponseEntity<?> fetchStatus(){
+        SecureRandom random = new SecureRandom();
+        int type = random.nextInt(4);
         String json = null;
-        if (type.equalsIgnoreCase("success")){
-            json = createSuccessObject(transactionId);
+        if (type == 0){
+            json = createSuccessObject();
             return new ResponseEntity<>(json, HttpStatus.OK);
-        } else if (type.equalsIgnoreCase("failed")) {
-            json = createFailedObject(transactionId);
+        } else if (type == 1) {
+            json = createFailedObject();
             return new ResponseEntity<>(json, HttpStatus.OK);
-        } else if (type.equalsIgnoreCase("error")){
+        } else if (type == 2){
             json = createErrorObject();
             return new ResponseEntity<>(json, HttpStatus.NOT_FOUND);
         } else{
@@ -43,7 +45,7 @@ public class TigController {
         return gson.toJson(map);
     }
 
-    private String createSuccessObject(String transactionId) {
+    private String createSuccessObject() {
         // Telco Log Map
         Map<String, Object> telcoLog = new HashMap<>();
         telcoLog.put("error", "");
@@ -55,7 +57,7 @@ public class TigController {
 
         // Transaction Map
         Map<String, Object> transaction = new HashMap<>();
-        transaction.put("transaction_id", transactionId);
+        transaction.put("transaction_id", "3466630149949886464");
         transaction.put("amount", 10000);
         transaction.put("network", "mtn");
         transaction.put("msisdn", "08164168842");
@@ -87,12 +89,12 @@ public class TigController {
         return gson.toJson(mainMap);
     }
 
-    private String createFailedObject(String transactionId) {
+    private String createFailedObject() {
         // Reversal Log Map
         Map<String, Object> reversalLog = new HashMap<>();
         reversalLog.put("amount", 2);
         reversalLog.put("action", "credit");
-        reversalLog.put("transaction_id", transactionId);
+        reversalLog.put("transaction_id","3466922022484578304");
         reversalLog.put("transaction_type", "Airtime");
         reversalLog.put("transaction_msisdn", "09167226284");
         reversalLog.put("transaction_network", "mtn");
