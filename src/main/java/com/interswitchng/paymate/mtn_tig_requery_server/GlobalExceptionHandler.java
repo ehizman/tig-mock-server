@@ -34,7 +34,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 public class GlobalExceptionHandler {
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class, HttpMediaTypeNotSupportedException.class, HttpMediaTypeNotAcceptableException.class, MissingPathVariableException.class, MissingServletRequestParameterException.class, MissingServletRequestPartException.class, ServletRequestBindingException.class, MethodArgumentNotValidException.class, HandlerMethodValidationException.class, NoHandlerFoundException.class, NoResourceFoundException.class, AsyncRequestTimeoutException.class, ErrorResponseException.class, MaxUploadSizeExceededException.class, ConversionNotSupportedException.class, TypeMismatchException.class, HttpMessageNotReadableException.class, HttpMessageNotWritableException.class, MethodValidationException.class, BindException.class})
     public ResponseEntity<Object> handleMethodNotFoundException(Exception ex, WebRequest request) throws Exception {
-        String errorResponse = Util.createErrorObject();
+        String errorResponse ="404. Page Not Found";
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

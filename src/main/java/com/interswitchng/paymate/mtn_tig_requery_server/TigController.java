@@ -16,6 +16,7 @@ import java.util.Map;
 public class TigController {
     @GetMapping(value = "/", produces = "application/json")
     public ResponseEntity<?> fetchStatus(){
+        System.out.println("Here");
         SecureRandom random = new SecureRandom();
         int type = random.nextInt(4);
         String json = null;
