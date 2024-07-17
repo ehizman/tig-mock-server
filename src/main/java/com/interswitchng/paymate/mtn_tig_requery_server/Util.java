@@ -10,13 +10,13 @@ import java.util.Map;
 public class Util {
     private static Gson gson = new Gson();
 
-    public static String createErrorObject() {
+    public static String createErrorRequeryObject() {
         Map<String, Object> map = new HashMap<>();
         map.put("error", "Transaction not found");
         return gson.toJson(map);
     }
 
-    public static String createSuccessObject() {
+    public static String createSuccessRequeryObject() {
         // Telco Log Map
         Map<String, Object> telcoLog = new HashMap<>();
         telcoLog.put("error", "");
@@ -60,7 +60,7 @@ public class Util {
         return gson.toJson(mainMap);
     }
 
-    public static String createFailedObject() {
+    public static String createFailedRequeryObject() {
         // Reversal Log Map
         Map<String, Object> reversalLog = new HashMap<>();
         reversalLog.put("amount", 2);
@@ -117,4 +117,65 @@ public class Util {
         return gson.toJson(mainMap);
     }
 
+    public static String createPendingAirtimeTransaction() {
+        // Create a HashMap to represent the JSON response
+        Map<String, Object> jsonResponse = new HashMap<>();
+
+        // Nested HashMap for the "data" object
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("transaction_id", "3468728406452736000");
+        dataMap.put("amount", 200);
+        dataMap.put("network", "mtn");
+        dataMap.put("msisdn", "0916722684");
+        dataMap.put("type", "Airtime");
+        dataMap.put("data_bundle_code", "");
+        dataMap.put("data_bundle_desc", "");
+        dataMap.put("external_ref", "224864");
+        dataMap.put("status", "Pending");
+        dataMap.put("status_code", "02");
+        dataMap.put("created_at", "2024-07-17T11:39:20.662+01:00");
+        dataMap.put("balance_before", 386400);
+        dataMap.put("commission_amount", 0);
+        dataMap.put("commission_to", "");
+        dataMap.put("refunded_at", null);
+
+        // Add the "data" object to the main JSON response map
+        jsonResponse.put("data", dataMap);
+        jsonResponse.put("message", "Pending");
+        jsonResponse.put("status", "Pending");
+        jsonResponse.put("status_code", "06");
+        return gson.toJson(jsonResponse);
+    }
+
+    public static String createPendingDataTransaction() {
+        // Create a HashMap to represent the JSON response
+        Map<String, Object> jsonResponse = new HashMap<>();
+
+        // Nested HashMap for the "data" object
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("transaction_id", "3468725212158889984");
+        dataMap.put("amount", 10000);
+        dataMap.put("network", "mtn");
+        dataMap.put("msisdn", "08164168842");
+        dataMap.put("type", "Data");
+        dataMap.put("data_bundle_code", "M0901");
+        dataMap.put("data_bundle_desc", "DataPlan 100MB Daily");
+        dataMap.put("external_ref", "1234");
+        dataMap.put("status", "Successful");
+        dataMap.put("status_code", "00");
+        dataMap.put("created_at", "2024-07-17T11:26:39.085+01:00");
+        dataMap.put("balance_before", 396400);
+        dataMap.put("commission_amount", 0);
+        dataMap.put("commission_to", "");
+        dataMap.put("refunded_at", null);
+
+        // Add the "data" object to the main JSON response map
+        jsonResponse.put("data", dataMap);
+        jsonResponse.put("message", "Pending");
+        jsonResponse.put("status", "Pending");
+        jsonResponse.put("status_code", "06");
+
+        // Print the HashMap representation
+        return gson.toJson(jsonResponse);
+    }
 }
