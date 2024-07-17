@@ -1,12 +1,8 @@
 package com.interswitchng.paymate.mtn_tig_requery_server;
 
-import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.SecureRandom;
 
@@ -24,10 +20,8 @@ public class TigController {
         String json = Util.createPendingDataTransaction();
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
-    @GetMapping(value = "/", produces = "application/json")
-    public ResponseEntity<?> fetchStatus(){
-        SecureRandom random = new SecureRandom();
-        int type = random.nextInt(4);
+    @GetMapping(value = "/{type}", produces = "application/json")
+    public ResponseEntity<?> fetchStatus(@PathVariable("type") int type){
         String json = null;
         if (type == 0){
             json = Util.createSuccessRequeryObject();

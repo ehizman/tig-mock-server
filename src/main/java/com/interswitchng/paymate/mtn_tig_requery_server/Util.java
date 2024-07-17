@@ -12,7 +12,7 @@ public class Util {
 
     public static String createErrorRequeryObject() {
         Map<String, Object> map = new HashMap<>();
-        map.put("error", "Transaction not found");
+        map.put("Error", "Transaction not found");
         return gson.toJson(map);
     }
 
