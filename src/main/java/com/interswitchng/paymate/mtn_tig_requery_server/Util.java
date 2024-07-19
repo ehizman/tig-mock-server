@@ -161,7 +161,7 @@ public class Util {
         dataMap.put("data_bundle_code", "M0901");
         dataMap.put("data_bundle_desc", "DataPlan 100MB Daily");
         dataMap.put("external_ref", "1234");
-        dataMap.put("status", "Successful");
+        dataMap.put("status", "Pending");
         dataMap.put("status_code", "00");
         dataMap.put("created_at", "2024-07-17T11:26:39.085+01:00");
         dataMap.put("balance_before", 396400);
