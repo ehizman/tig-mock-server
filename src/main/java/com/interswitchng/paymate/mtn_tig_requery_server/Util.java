@@ -10,13 +10,13 @@ import java.util.Map;
 public class Util {
     private static Gson gson = new Gson();
 
-    public static String createErrorRequeryObject() {
+    public static String createNotFoundRequeryObject() {
         Map<String, Object> map = new HashMap<>();
         map.put("Error", "Transaction not found");
         return gson.toJson(map);
     }
 
-    public static String createSuccessRequeryObject() {
+    public static String createSuccessRequeryObject(String id) {
         // Telco Log Map
         Map<String, Object> telcoLog = new HashMap<>();
         telcoLog.put("error", "");
@@ -24,11 +24,11 @@ public class Util {
         telcoLog.put("response_status_code", "0");
         telcoLog.put("response_transaction_id", "2024071116413771609600345");
         telcoLog.put("status", "Successful");
-        telcoLog.put("transaction_id", "3466630149949886464");
+        telcoLog.put("transaction_id", id);
 
         // Transaction Map
         Map<String, Object> transaction = new HashMap<>();
-        transaction.put("transaction_id", "3466630149949886464");
+        transaction.put("transaction_id", id);
         transaction.put("amount", 10000);
         transaction.put("network", "mtn");
         transaction.put("msisdn", "08164168842");
@@ -60,16 +60,16 @@ public class Util {
         return gson.toJson(mainMap);
     }
 
-    public static String createFailedRequeryObject() {
+    public static String createFailedRequeryObject(String id) {
         // Reversal Log Map
         Map<String, Object> reversalLog = new HashMap<>();
         reversalLog.put("amount", 2);
         reversalLog.put("action", "credit");
-        reversalLog.put("transaction_id","3466922022484578304");
+        reversalLog.put("transaction_id", id);
         reversalLog.put("transaction_type", "Airtime");
         reversalLog.put("transaction_msisdn", "09167226284");
         reversalLog.put("transaction_network", "mtn");
-        reversalLog.put("description", "Rvsl: 3466922022484578304 - airtime purchase for 09167226284");
+        reversalLog.put("description", "Rvsl: " + id + " - airtime purchase for 09167226284");
         reversalLog.put("balance_before", 396798);
         reversalLog.put("created_at", "2024-07-12T12:01:25.686+01:00");
         reversalLog.put("updated_at", "2024-07-12T12:01:25.686+01:00");
@@ -81,11 +81,11 @@ public class Util {
         telcoLog.put("response_status_code", "1072");
         telcoLog.put("response_transaction_id", "2024071212012555110577646");
         telcoLog.put("status", "Failed");
-        telcoLog.put("transaction_id", "3466922022484578304");
+        telcoLog.put("transaction_id", id);
 
         // Transaction Map
         Map<String, Object> transaction = new HashMap<>();
-        transaction.put("transaction_id", "3466922022484578304");
+        transaction.put("transaction_id", id);
         transaction.put("amount", 2);
         transaction.put("network", "mtn");
         transaction.put("msisdn", "09167226284");

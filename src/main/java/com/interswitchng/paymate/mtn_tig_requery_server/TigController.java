@@ -4,36 +4,46 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.SecureRandom;
-
 @RestController
-@RequestMapping("/api/transaction")
+@RequestMapping("/api")
 public class TigController {
 
     @PostMapping(value = "/airtime", produces = "application/json")
-    public ResponseEntity<?> producePendingAirtimeTransaction(){
+    public ResponseEntity<?> fetchPendingAirtimeTransaction(){
         String json = Util.createPendingAirtimeTransaction();
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
     @PostMapping(value = "/data", produces = "application/json")
-    public ResponseEntity<?> producePendingDataTransaction(){
+    public ResponseEntity<?> fetchPendingDataTransaction(){
         String json = Util.createPendingDataTransaction();
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
-    @GetMapping(value = "/{type}", produces = "application/json")
-    public ResponseEntity<?> fetchStatus(@PathVariable("type") int type){
-        String json = null;
-        if (type == 0){
-            json = Util.createSuccessRequeryObject();
-            return new ResponseEntity<>(json, HttpStatus.OK);
-        } else if (type == 1) {
-            json = Util.createFailedRequeryObject();
-            return new ResponseEntity<>(json, HttpStatus.OK);
-        } else if (type == 2){
-            json = Util.createErrorRequeryObject();
-            return new ResponseEntity<>(json, HttpStatus.NOT_FOUND);
-        } else{
-            return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
-        }
+
+    @GetMapping(value = "transaction/{id}", produces = "application/json")
+    public ResponseEntity<?> fetchStatus(@PathVariable("id") String  id){
+        String json = Util.createSuccessRequeryObject(id);
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
+    @GetMapping(value = "transaction/success/{id}", produces = "application/json")
+    public ResponseEntity<?> fetchSuccessStatus(@PathVariable("id") String  id){
+        String json = Util.createSuccessRequeryObject(id);
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "transaction/failed/{id}", produces = "application/json")
+    public ResponseEntity<?> fetchFailedStatus(@PathVariable("id") String  id){
+        String json = Util.createFailedRequeryObject(id);
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "transaction/not-found/{id}", produces = "application/json")
+    public ResponseEntity<?> fetchNotFoundStatus(@PathVariable("id") int id){
+        String json = Util.createNotFoundRequeryObject();
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "transaction/error/{id}", produces = "application/json")
+    public ResponseEntity<?> fetchErrorStatus(@PathVariable("id") int id){
+        return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
     }
 }
