@@ -19,7 +19,7 @@ public class TigController {
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    @GetMapping(value = "transaction/{id}", produces = "application/json")
+    @GetMapping(value = "transaction-by-ref/{id}", produces = "application/json")
     public ResponseEntity<?> fetchStatus(@PathVariable("id") String  id){
         String json = Util.createSuccessRequeryObject(id);
         return new ResponseEntity<>(json, HttpStatus.OK);
