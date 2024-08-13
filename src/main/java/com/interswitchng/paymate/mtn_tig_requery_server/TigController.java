@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api")
 public class TigController {
@@ -54,7 +57,11 @@ public class TigController {
 
     @PostMapping("/vend")
     public ResponseEntity<?> confirmStatus(HttpServletRequest request){
-        log.info("Request --> {}", request);
+        try {
+            log.info("Request --> {}", request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
