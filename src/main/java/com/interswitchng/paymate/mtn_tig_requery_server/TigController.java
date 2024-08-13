@@ -1,12 +1,17 @@
 package com.interswitchng.paymate.mtn_tig_requery_server;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
 public class TigController {
+    private Logger log = LoggerFactory.getLogger(TigController.class);
 
     @PostMapping(value = "/airtime", produces = "application/json")
     public ResponseEntity<?> fetchPendingAirtimeTransaction(){
@@ -45,5 +50,11 @@ public class TigController {
     @GetMapping(value = "transaction/error/{id}", produces = "application/json")
     public ResponseEntity<?> fetchErrorStatus(@PathVariable("id") int id){
         return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/vend")
+    public ResponseEntity<?> confirmStatus(HttpServletRequest request){
+        log.info("Request --> {}", request);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
